@@ -1,9 +1,15 @@
-import axios from "axios"
+import axios from "axios";
 
-const getPokemons = () => {
-  return axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=151')
+const getPokemons = async () => {
+  return axios.get('https://pokeapi.co/api/v2/pokemon?limit=151')
     .then(res => res.data.results)
     .catch(error => console.log(error));
 }
 
-export { getPokemons };
+const getPokemonDetails = async (pokemon) => {
+  return await axios.get(pokemon.url)
+    .then(res => res.data)
+    .catch(error => console.log(error))
+}
+
+export { getPokemons, getPokemonDetails };

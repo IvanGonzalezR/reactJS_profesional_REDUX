@@ -1,29 +1,37 @@
 import React from 'react';
 import './App.css';
-import { Col, Row, Divider } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import { Searcher } from './Components/Searcher';
-import { PokemonCard } from './Components/PokemonCard';
 import { PokemonList } from './Components/PokemonList';
 import logo from './statics/logo.svg'
 import { getPokemons } from './api';
-import { connect } from 'react-redux';
-import { setPokemons as setPokemonsActions } from './actions/index';
+import { getPokemonsWithDetails, setLoading } from './actions/index';
+import { useSelector, useDispatch } from 'react-redux';
 
-function App({ pokemons, setPokemons }) {
+function App() {
   //Con useState
   // const [ pokemons, setPokemons ] = React.useState([]);
   //Con Redux
 
+  //Redux con hooks
+  //recibe el estado y retorna el valor que quiero del estado
+  const pokemons = useSelector(state => state.pokemons);
+  const loading = useSelector(state => state.loading);
+
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     const fetchPokemons = async () => {
+      dispatch(setLoading(true));
       const pokemonsRes = await getPokemons();
-      setPokemons(pokemonsRes);
+      dispatch(getPokemonsWithDetails(pokemonsRes));
+      dispatch(setLoading(false));
     }
 
     fetchPokemons();
   }, []);
 
-  console.log(pokemons);
+  // console.log(pokemons);
 
   return (
     <div className="App">
@@ -38,27 +46,20 @@ function App({ pokemons, setPokemons }) {
         </Col>
       </Row>
       <Row >
-        <PokemonList pokemons={pokemons} />
+        <PokemonList pokemons={pokemons} /*images={images}*/ />
       </Row>
+      {
+        pokemons.length === 0 && (
+          <Spin
+            className='spinner'
+            spinning={pokemons.length === 0}
+            size='large'
+            tip='Cargando...'
+          />
+        )
+      }
     </div>
   );
 }
 
-//Retorna un objeto cuyas props
-//serán las props del componente que se está conectando a redux
-const mapStateToProps = (state) => {
-  return {
-    pokemons: state.pokemons,
-  };
-};
-
-//Recibe como parámetro el dispatch de redux
-//Retorna un objeto cuyas props serán mapeadas
-//a funciones que despachan acciones
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setPokemons: (value) => dispatch(setPokemonsActions(value)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
