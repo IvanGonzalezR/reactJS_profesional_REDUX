@@ -31,8 +31,6 @@ function App() {
     fetchPokemons();
   }, []);
 
-  // console.log(pokemons);
-
   return (
     <div className="App">
       <Row className="searchRow icon">
@@ -46,7 +44,7 @@ function App() {
         </Col>
       </Row>
       <Row >
-        <PokemonList pokemons={pokemons} /*images={images}*/ />
+        <PokemonList pokemons={pokemons} />
       </Row>
       {
         pokemons.length === 0 && (

@@ -14,7 +14,6 @@ const PokemonList = ({ pokemons }) => {
       >
         {
           pokemons.map((pokemon, indice) => {
-            console.log(pokemon.favorite);
             return (
               <Col key={pokemon.name}>
                 <PokemonCard

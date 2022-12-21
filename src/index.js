@@ -9,7 +9,6 @@ import { logger } from './middlewares';
 import thunk from 'redux-thunk';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 //Necesario para usar redux Thunk con devtools
 const composeAlt = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const composedEnhancers = composeAlt(

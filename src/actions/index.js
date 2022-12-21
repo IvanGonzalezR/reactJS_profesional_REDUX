@@ -1,5 +1,5 @@
 import { getPokemonDetails } from '../api';
-import { SET_POKEMONS, SET_LOADING, SET_FAVORITES } from './types'
+import { SET_POKEMONS, SET_LOADING, SET_FAVORITES, SORT_FAVORITES } from './types'
 
 const setPokemons = (payload) => ({
   type: SET_POKEMONS,
@@ -14,6 +14,10 @@ const setLoading = (payload) => ({
 const setFavorite = (payload) => ({
   type: SET_FAVORITES,
   payload,
+});
+
+const sortFavorites = () => ({
+  type: SORT_FAVORITES,
 });
 
 //Redux Thunk Action Creator
@@ -31,5 +35,6 @@ export {
   setPokemons,
   getPokemonsWithDetails,
   setLoading,
-  setFavorite
+  setFavorite,
+  sortFavorites,
 };

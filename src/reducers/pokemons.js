@@ -1,5 +1,5 @@
 import { Switch } from "antd";
-import { SET_POKEMONS, SET_LOADING, SET_FAVORITES } from "../actions/types";
+import { SET_POKEMONS, SET_LOADING, SET_FAVORITES, SORT_FAVORITES } from "../actions/types";
 
 const initialState = {
   pokemons: [],
@@ -23,13 +23,20 @@ const pokemonsReducer = (state = initialState, action) => {
         return state;
       }
 
-      console.log(newPokemonsList[ currentPokemonIndex ].favorite);
       newPokemonsList[ currentPokemonIndex ].favorite =
         !newPokemonsList[ currentPokemonIndex ].favorite;
 
       return {
         ...state,
         pokemons: newPokemonsList,
+      };
+    case SORT_FAVORITES:
+      const newPokemonsSorted = [ ...state.pokemons ];
+      // Ponemos primero los favoritos
+      sortNewPokemonsList(newPokemonsSorted);
+      return {
+        ...state,
+        pokemons: newPokemonsSorted,
       };
     case SET_LOADING:
       return {
@@ -40,5 +47,18 @@ const pokemonsReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+
+const sortNewPokemonsList = (newPokemonsList) => {
+  newPokemonsList.sort((a, b) => {
+    if (a.favorite && !b.favorite) {
+      return -1;
+    }
+    if (!a.favorite && b.favorite) {
+      return 1;
+    }
+    return 0;
+  });
+}
 
 export { pokemonsReducer };
