@@ -16,7 +16,7 @@ function App() {
   //Redux con hooks
   //recibe el estado y retorna el valor que quiero del estado
   const pokemons = useSelector(state => state.pokemons);
-  const loading = useSelector(state => state.loading);
+  // const loading = useSelector(state => state.loading);
 
   const dispatch = useDispatch();
 

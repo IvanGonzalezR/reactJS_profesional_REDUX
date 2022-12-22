@@ -1,52 +1,43 @@
-import { Switch } from "antd";
 import { SET_POKEMONS, SET_LOADING, SET_FAVORITES, SORT_FAVORITES } from "../actions/types";
+import { produce, enableAllPlugins } from 'immer';
+
+enableAllPlugins();
 
 const initialState = {
   pokemons: [],
   loading: false,
 };
 
-const pokemonsReducer = (state = initialState, action) => {
+const pokemonsReducer = produce((draft = initialState, action) => {
   switch (action.type) {
     case SET_POKEMONS:
-      return {
-        ...state,
-        pokemons: action.payload
-      };
+      draft.pokemons = action.payload;
+      return draft;
     case SET_FAVORITES:
-      const newPokemonsList = [ ...state.pokemons ];
-      const currentPokemonIndex = newPokemonsList.findIndex(
+
+      const currentPokemonIndex = draft.pokemons.findIndex(
         pokemon => pokemon.id === action.payload.pokemonId
       );
 
       if (currentPokemonIndex < 0) {
-        return state;
+        return draft;
       }
 
-      newPokemonsList[ currentPokemonIndex ].favorite =
-        !newPokemonsList[ currentPokemonIndex ].favorite;
+      draft.pokemons[ currentPokemonIndex ].favorite =
+        !draft.pokemons[ currentPokemonIndex ].favorite;
 
-      return {
-        ...state,
-        pokemons: newPokemonsList,
-      };
+      return draft;
     case SORT_FAVORITES:
-      const newPokemonsSorted = [ ...state.pokemons ];
       // Ponemos primero los favoritos
-      sortNewPokemonsList(newPokemonsSorted);
-      return {
-        ...state,
-        pokemons: newPokemonsSorted,
-      };
+      sortNewPokemonsList(draft.pokemons);
+      return draft;
     case SET_LOADING:
-      return {
-        ...state,
-        loading: action.payload
-      };
+      draft.loading = action.payload
+      return draft;
     default:
-      return state;
+      return draft;
   }
-};
+});
 
 
 const sortNewPokemonsList = (newPokemonsList) => {
