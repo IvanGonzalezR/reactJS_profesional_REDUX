@@ -1,14 +1,13 @@
-import { SET_POKEMONS, SET_LOADING, SET_FAVORITES, SORT_FAVORITES } from "../actions/types";
+import { SET_POKEMONS, SET_FAVORITES, SORT_FAVORITES } from "../actions/types";
 import { produce, enableAllPlugins } from 'immer';
 
 enableAllPlugins();
 
 const initialState = {
   pokemons: [],
-  loading: false,
 };
 
-const pokemonsReducer = produce((draft = initialState, action) => {
+const pokemonsReducer = (draft = initialState, action) => {
   switch (action.type) {
     case SET_POKEMONS:
       draft.pokemons = action.payload;
@@ -31,13 +30,10 @@ const pokemonsReducer = produce((draft = initialState, action) => {
       // Ponemos primero los favoritos
       sortNewPokemonsList(draft.pokemons);
       return draft;
-    case SET_LOADING:
-      draft.loading = action.payload
-      return draft;
     default:
       return draft;
   }
-});
+};
 
 
 const sortNewPokemonsList = (newPokemonsList) => {

@@ -6,16 +6,12 @@ import { PokemonList } from './Components/PokemonList';
 import logo from './statics/logo.svg'
 import { getPokemons } from './api';
 import { getPokemonsWithDetails, setLoading } from './actions/index';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 function App() {
-  //Con useState
-  // const [ pokemons, setPokemons ] = React.useState([]);
-  //Con Redux
-
   //Redux con hooks
   //recibe el estado y retorna el valor que quiero del estado
-  const pokemons = useSelector(state => state.pokemons);
+  const pokemons = useSelector(state => state.pokemons.pokemons, shallowEqual);
   // const loading = useSelector(state => state.loading);
 
   const dispatch = useDispatch();
