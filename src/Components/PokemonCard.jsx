@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from 'antd';
 import { StarButton } from './StarButton';
 import { useDispatch } from 'react-redux';
-import { setFavorite, sortFavorites } from '../actions/index';
+import { setFavorite, sortFavorites } from '../slices/pokemonSlice';
 const { Meta } = Card;
 
 const PokemonCard = ({ name, img, types, id, favorite }) => {
@@ -14,7 +14,6 @@ const PokemonCard = ({ name, img, types, id, favorite }) => {
   const handleOnFavorite = () => {
     dispatch(setFavorite({ pokemonId: id }));
     dispatch(sortFavorites());
-
   }
 
   return (

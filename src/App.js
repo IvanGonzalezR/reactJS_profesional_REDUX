@@ -7,6 +7,7 @@ import logo from './statics/logo.svg'
 import { getPokemons } from './api';
 import { getPokemonsWithDetails, setLoading } from './actions/index';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { fetchPokemonWithDetails } from './slices/pokemonSlice';
 
 function App() {
   //Redux con hooks
@@ -17,14 +18,7 @@ function App() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    const fetchPokemons = async () => {
-      dispatch(setLoading(true));
-      const pokemonsRes = await getPokemons();
-      dispatch(getPokemonsWithDetails(pokemonsRes));
-      dispatch(setLoading(false));
-    }
-
-    fetchPokemons();
+    dispatch(fetchPokemonWithDetails());
   }, []);
 
   return (

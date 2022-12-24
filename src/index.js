@@ -11,7 +11,9 @@ import thunk from 'redux-thunk';
 import { pokemonsReducer } from './reducers/pokemons';
 import { uiReducer } from './reducers/ui';
 import { produce } from 'immer';
-import { combineReducers } from 'redux-immer';
+import { combineReducers } from 'redux';
+import dataReducerToolkit from './slices/pokemonSlice';
+import uiReducerToolkit from './slices/uiSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 //Necesario para usar redux Thunk con devtools
@@ -22,11 +24,12 @@ const composedEnhancers = composeAlt(
 
 const store = createStore(
   combineReducers(
-    produce,
+    // Ya no uso produce porque Redux Toolkit ya usa immer
+    // produce,
     // combineReducers recibe un objeto con los reducers
     {
-      pokemons: pokemonsReducer,
-      ui: uiReducer,
+      pokemons: dataReducerToolkit,
+      ui: uiReducerToolkit,
     }
   ),
   composedEnhancers
