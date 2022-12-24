@@ -4,8 +4,6 @@ import { Col, Row, Spin } from 'antd';
 import { Searcher } from './Components/Searcher';
 import { PokemonList } from './Components/PokemonList';
 import logo from './statics/logo.svg'
-import { getPokemons } from './api';
-import { getPokemonsWithDetails, setLoading } from './actions/index';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { fetchPokemonWithDetails } from './slices/pokemonSlice';
 

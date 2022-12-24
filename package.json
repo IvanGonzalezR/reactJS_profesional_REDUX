@@ -11,16 +11,11 @@
     "antd": "^5.0.5",
     "axios": "^1.2.1",
     "body-scroll-lock": "^4.0.0-beta.0",
-    "immer": "^9.0.16",
-    "immutable": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
-    "react-scroll": "^1.8.9",
     "redux": "^4.2.0",
-    "redux-immer": "^1.0.5",
-    "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

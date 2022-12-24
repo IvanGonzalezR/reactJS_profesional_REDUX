@@ -8,9 +8,6 @@ import { logger } from './middlewares';
 import thunk from 'redux-thunk';
 
 //reducers
-import { pokemonsReducer } from './reducers/pokemons';
-import { uiReducer } from './reducers/ui';
-import { produce } from 'immer';
 import { combineReducers } from 'redux';
 import dataReducerToolkit from './slices/pokemonSlice';
 import uiReducerToolkit from './slices/uiSlice';
