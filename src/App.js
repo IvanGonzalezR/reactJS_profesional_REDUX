@@ -11,9 +11,11 @@ function App() {
   //Redux con hooks
   //recibe el estado y retorna el valor que quiero del estado
   const pokemons = useSelector(state => state.pokemons.pokemons, shallowEqual);
+  const searchValue = useSelector(state => state.pokemons.searchValue, shallowEqual);
   // const loading = useSelector(state => state.loading);
 
   const dispatch = useDispatch();
+
 
   React.useEffect(() => {
     dispatch(fetchPokemonWithDetails());
@@ -32,7 +34,9 @@ function App() {
         </Col>
       </Row>
       <Row >
-        <PokemonList pokemons={pokemons} />
+        <PokemonList pokemons={searchValue != 'false' ? pokemons.filter(
+          pokemon => pokemon.isSearched === true
+        ) : pokemons} />
       </Row>
       {
         pokemons.length === 0 && (

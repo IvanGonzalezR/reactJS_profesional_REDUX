@@ -1,22 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getPokemonDetails, getPokemons } from "../api";
-import { setLoading } from "./uiSlice";
 
 const initialState = {
   pokemons: [],
-}
+  searchedPokemons: [],
+  searchValue: "false",
+  searchCriteria: "Nombre",
+};
 
 //accion Asyncrona, por lo q se usa Thunk de redux 
 const fetchPokemonWithDetails = createAsyncThunk(
   'pokemon/fetchPokemonWithDetails',
-  async (/*Id*/_, { dispatch }) => {
-    // dispatch(setLoading(true));
+  async (/*Id*/_, { dispatch, getState }) => {
+
     const pokemonsRes = await getPokemons();
     const pokemonDetailed = await Promise.all(
       pokemonsRes.map(pokemon => getPokemonDetails(pokemon))
     );
     dispatch(setPokemons(pokemonDetailed));
-    // dispatch(setLoading(false));
   }
 );
 
@@ -27,6 +28,36 @@ const dataSlice = createSlice({
   reducers: {
     setPokemons: (state, action) => {
       state.pokemons = action.payload;
+    },
+    setSearchCriteria: (state, action) => {
+      state.searchCriteria = action.payload;
+    },
+    setSearchValue: (state, action) => {
+      // TODO: Buscar por criterio
+      state.searchValue = action.payload;
+
+      state.pokemons.filter(
+        pokemon => {
+          const searchValue = action.payload.toLowerCase();
+          if (state.searchCriteria === 'Nombre') {
+            return pokemon.name.includes(searchValue);
+          } else {
+            return pokemon.types.some(type => type.type.name.includes(searchValue));
+          }
+        }
+      ).map(pokemon => pokemon.isSearched = true);
+
+      state.pokemons.filter(
+        pokemon => {
+          const searchValue = action.payload.toLowerCase();
+          if (state.searchCriteria === 'Nombre') {
+            return !pokemon.name.includes(searchValue);
+          } else {
+            return !pokemon.types.some(type => type.type.name.includes(searchValue));
+          }
+        }
+      ).map(pokemon => pokemon.isSearched = false);
+
     },
     setFavorite: (state, action) => {
       const currentPokemonIndex = state.pokemons.findIndex(
@@ -61,9 +92,13 @@ console.log(dataSlice);
 export const {
   setPokemons,
   setFavorite,
-  sortFavorites
+  sortFavorites,
+  setSearchCriteria,
+  setSearchValue,
 } = dataSlice.actions;
 
-export { fetchPokemonWithDetails };
+export {
+  fetchPokemonWithDetails,
+};
 
 export default dataSlice.reducer;
