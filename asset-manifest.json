@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/reactJS_profesional_REDUX/static/css/main.93e9a813.css",
+    "main.js": "/reactJS_profesional_REDUX/static/js/main.1ba3aa0c.js",
+    "static/media/logo.svg": "/reactJS_profesional_REDUX/static/media/logo.0905522d6d18ceaafa60a31e87c99e88.svg",
+    "index.html": "/reactJS_profesional_REDUX/index.html",
+    "main.93e9a813.css.map": "/reactJS_profesional_REDUX/static/css/main.93e9a813.css.map",
+    "main.1ba3aa0c.js.map": "/reactJS_profesional_REDUX/static/js/main.1ba3aa0c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93e9a813.css",
+    "static/js/main.1ba3aa0c.js"
+  ]
+}
